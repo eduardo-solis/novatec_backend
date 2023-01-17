@@ -1,21 +1,14 @@
 import { Router } from "express";
+import { obtenerCursos ,crearCurso, modificarCurso, cambiarEstatusCurso } from "../controllers/cursos.controller.js";
 
 const router = Router();
 
-router.get("/curso", (req, res) => {
-    res.send("obteniendo cursos");
-})
+router.get("/curso", obtenerCursos)
 
-router.post("/curso", (req, res) => {
-    res.send("agregando curso");
-})
+router.post("/curso", crearCurso)
 
-router.put("/curso", (req, res) => {
-    res.send("modificando curso");
-})
+router.put("/curso", modificarCurso)
 
-router.delete("/curso", (req, res) => {
-    res.send("eliminando / activando curso");
-})
+router.delete("/curso", cambiarEstatusCurso)
 
 export default router;
