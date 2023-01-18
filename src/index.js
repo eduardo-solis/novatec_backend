@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.use(indexRoutes);
-app.use(cursosRoutes);
+app.use("/api", cursosRoutes);
 
 app.listen(3000);
 console.log("Servidor ejecutandose en el puerto 3000");
