@@ -35,6 +35,22 @@ export const modificarCurso = (req, res) => {
     res.send("modificando curso");
 }
 
-export const cambiarEstatusCurso = (req, res) => {
-    res.send("eliminando/activando curso");
+export const cambiarEstatusCurso = async (req, res) => {
+    const { id, op } = req.params;
+    let sql = "select 1 + 1";
+
+    if( op == 0 ){ // Eliminando curso
+        sql = "UPDATE curso SET estatus = false WHERE idCurso = ?";
+    }
+
+    if ( op == 1 ){ // Activando curso
+        sql = "UPDATE curso SET estatus = true WHERE idCurso = ?";
+    }
+
+    const [result] = await pool.query(sql, [id]);
+
+    if( result.affectedRows <= 0 ) return res.status(404).json({ "mensaje" : "No se encontro ningun curso" });
+
+    res.sendStatus(204);
+
 }

@@ -11,6 +11,6 @@ router.post("/curso", crearCurso)
 
 router.put("/curso", modificarCurso)
 
-router.delete("/curso", cambiarEstatusCurso)
+router.delete("/curso/:id/:op", cambiarEstatusCurso)
 
 export default router;
