@@ -34,7 +34,7 @@ export const modificarCurso = async (req, res) => {
     const { id } = req.params;
     const { nombre, descripcion, precio } = req.body;
 
-    const [result] = await pool.query("UPDATE curso SET nombre = ?, descripcion = ?, precio = ? WHERE idCurso = ?", [id, nombre, descripcion, precio]);
+    const [result] = await pool.query("UPDATE curso SET nombre = ?, descripcion = ?, precio = ? WHERE idCurso = ?", [nombre, descripcion, precio, id]);
 
     if( result.affectedRows <= 0 ) return res.status(404).json({ "mensaje" : "No se encontro ningun curso" });
 
