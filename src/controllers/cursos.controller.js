@@ -34,16 +34,13 @@ export const modificarCurso = async (req, res) => {
     const { id } = req.params;
     const { nombre, descripcion, precio } = req.body;
 
-    const [result] = await pool.query("UPDATE curso SET nombre = ?, descripcion = ?, precio = ? WHERE idCurso = ?", [nombre, descripcion, precio, id]);
+    const [result] = await pool.query("UPDATE curso SET nombre = IFNULL(?, nombre), descripcion = IFNULL(?, descripcion), precio = IFNULL(?, precio) WHERE idCurso = ?", [nombre, descripcion, precio, id]);
 
     if( result.affectedRows <= 0 ) return res.status(404).json({ "mensaje" : "No se encontro ningun curso" });
 
-    res.send({
-        Id: id,
-        Nombre: nombre,
-        Descripcion: descripcion,
-        Precio: precio
-    });
+    const [rows] = await pool.query("SELECT * FROM vista_curso WHERE Id = ?", [id]);
+
+    res.send(rows[0]);
 
 }
 

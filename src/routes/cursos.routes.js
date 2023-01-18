@@ -9,7 +9,7 @@ router.get("/curso/:id", obtenerCurso)
 
 router.post("/curso", crearCurso)
 
-router.put("/curso/:id", modificarCurso)
+router.patch("/curso/:id", modificarCurso)
 
 router.delete("/curso/:id/:op", cambiarEstatusCurso)
 
