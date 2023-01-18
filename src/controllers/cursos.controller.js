@@ -18,12 +18,10 @@ export const crearCurso = async (req, res) => {
 
     const { nombre, descripcion, precio } = req.body;
 
-    const [result] = await pool.query(`SELECT agregar_curso(?,?,?) AS insertId`, [nombre, descripcion, precio]);
-
-    const { insertId } = result[0];
+    const [rows] = await pool.query(`INSERT INTO curso (nombre, descripcion, precio) value (?,?,?)`, [nombre, descripcion, precio]);
 
     res.send({
-        Id: insertId,
+        Id: rows.insertId,
         Nombre: nombre,
         Descripcion: descripcion,
         Precio: precio
@@ -31,8 +29,22 @@ export const crearCurso = async (req, res) => {
 
 }
 
-export const modificarCurso = (req, res) => {
-    res.send("modificando curso");
+export const modificarCurso = async (req, res) => {
+
+    const { id } = req.params;
+    const { nombre, descripcion, precio } = req.body;
+
+    const [result] = await pool.query("UPDATE curso SET nombre = ?, descripcion = ?, precio = ? WHERE idCurso = ?", [id, nombre, descripcion, precio]);
+
+    if( result.affectedRows <= 0 ) return res.status(404).json({ "mensaje" : "No se encontro ningun curso" });
+
+    res.send({
+        Id: id,
+        Nombre: nombre,
+        Descripcion: descripcion,
+        Precio: precio
+    });
+
 }
 
 export const cambiarEstatusCurso = async (req, res) => {
