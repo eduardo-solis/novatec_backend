@@ -18,10 +18,6 @@ router.patch ("/archivo", (req, res) => {
     res.send("modificando archivo");
 });
 
-router.delete ("/archivo/:id/:op", (req, res) => {
-    res.send("cambiando estado archivo");
-});
-
 router.delete ("/archivo/:id", (req, res) => {
     res.send("borrar archivo");
 });
