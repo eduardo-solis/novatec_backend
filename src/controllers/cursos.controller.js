@@ -4,7 +4,7 @@ import { pool } from "../db.js";
 export const obtenerCursos = async (req, res) => {
     try {
         
-        const [rows] = await pool.query("SELECT * FROM vista_curso");
+        const [rows] = await pool.query("SELECT * FROM curso");
         res.json(rows);
 
     } catch (error) {
@@ -15,7 +15,7 @@ export const obtenerCursos = async (req, res) => {
 export const obtenerCurso = async (req, res) => {
     try {
 
-        const [rows] = await pool.query("SELECT * FROM vista_curso WHERE Id = ?", [req.params.id]);
+        const [rows] = await pool.query("SELECT * FROM curso WHERE idCurso = ?", [req.params.id]);
         if (rows <= 0) return res.status(404).json({ "mensaje": "No se encontro ningun curso" })
         res.send(rows[0]);
 
@@ -26,15 +26,20 @@ export const obtenerCurso = async (req, res) => {
 
 export const crearCurso = async (req, res) => {
 
+    const { nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura } = req.body;
     try {
 
-        const { nombre, descripcion, precio } = req.body;
-        const [rows] = await pool.query(`INSERT INTO curso (nombre, descripcion, precio) value (?,?,?)`, [nombre, descripcion, precio]);
+        const [rows] = await pool.query(`INSERT INTO curso (nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura) value (?,?,??,?,?,?)`, [nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura]);
         res.send({
-            Id: rows.insertId,
-            Nombre: nombre,
-            Descripcion: descripcion,
-            Precio: precio
+            idCurso: rows.insertId,
+            nombre: nombre,
+            objetivos: objetivos,
+            descripcion: descripcion,
+            precio: precio,
+            duracion: duracion,
+            idVideo: idVideo,
+            idMiniatura: idMiniatura,
+            estatus: 1
         });
 
     } catch (error) {
@@ -46,13 +51,13 @@ export const crearCurso = async (req, res) => {
 export const modificarCurso = async (req, res) => {
 
     const { id } = req.params;
-    const { nombre, descripcion, precio } = req.body;
+    const { nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura } = req.body;
 
     try {
         
-        const [result] = await pool.query("UPDATE curso SET nombre = IFNULL(?, nombre), descripcion = IFNULL(?, descripcion), precio = IFNULL(?, precio) WHERE idCurso = ?", [nombre, descripcion, precio, id]);
+        const [result] = await pool.query("UPDATE curso SET nombre = IFNULL(?, nombre), objetivos = IFNULL(?, objetivos), descripcion = IFNULL(?, descripcion), precio = IFNULL(?, precio), duracion = IFNULL(?, duracion), idVideo = IFNULL(?, idVideo), idMiniatura = IFNULL(?, idMiniatura) WHERE idCurso = ?", [nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura, id]);
         if( result.affectedRows <= 0 ) return res.status(404).json({ "mensaje" : "No se encontro ningun curso" });
-        const [rows] = await pool.query("SELECT * FROM vista_curso WHERE Id = ?", [id]);
+        const [rows] = await pool.query("SELECT * FROM curso WHERE idCurso = ?", [id]);
         res.send(rows[0]);
 
     } catch (error) {
