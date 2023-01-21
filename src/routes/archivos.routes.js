@@ -1,25 +1,23 @@
 import { Router } from "express";
 
+import {
+    crearArchivo,
+    eliminarArchivo,
+    modificarArchivo,
+    obtenerArchivo,
+    obtenerArchivos
+} from '../controllers/archivos.controller.js';
+
 const router = Router();
 
-router.get ("/archivo", (req, res) => {
-    res.send("obteniendo archivos");
-});
+router.get ("/archivo", obtenerArchivos);
 
-router.get ("/archivo/:id", (req, res) => {
-    res.send("obteniendo 1 archivo");
-});
+router.get ("/archivo/:id", obtenerArchivo);
 
-router.post ("/archivo", (req, res) => {
-    res.send("agregando archivo");
-});
+router.post ("/archivo", crearArchivo);
 
-router.patch ("/archivo", (req, res) => {
-    res.send("modificando archivo");
-});
+router.patch ("/archivo", modificarArchivo);
 
-router.delete ("/archivo/:id", (req, res) => {
-    res.send("borrar archivo");
-});
+router.delete ("/archivo/:id", eliminarArchivo);
 
 export default router;
