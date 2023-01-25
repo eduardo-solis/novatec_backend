@@ -59,7 +59,7 @@ export const modificarCuestionario = async (req, res) => {
     }
 }
 
-export const eliminarArchivo = async (req, res) => {
+export const eliminarCuestionario = async (req, res) => {
 
     const { id } = req.params;
 
