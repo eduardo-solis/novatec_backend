@@ -4,7 +4,7 @@ import { ping } from "../controllers/index.controller.js";
 const router = Router();
 
 router.get("/", (req, res) => {
-    res.send("Hola mundo");
+    res.send("<h1>Servicios de NovaTec Consultores México</h1>");
 });
 
 

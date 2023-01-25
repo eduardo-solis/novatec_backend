@@ -15,7 +15,7 @@ export const obtenerArchivos = async (req, res) => {
 export const obtenerArchivo = async (req, res) => {
     try {
 
-        const [rows] = await pool.query("SELECT * FROM archivo WHERE Id = ?", [req.params.id]);
+        const [rows] = await pool.query("SELECT * FROM archivo WHERE idArchivo = ?", [req.params.id]);
         if (rows <= 0) return res.status(404).json({ "mensaje": "No se encontro ningun archivo" })
         res.send(rows[0]);
 
