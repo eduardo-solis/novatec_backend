@@ -5,7 +5,8 @@ import {
     eliminarArchivo,
     modificarArchivo,
     obtenerArchivo,
-    obtenerArchivos
+    obtenerArchivos,
+    obtenerArchivosByLeccion
 } from '../controllers/archivos.controller.js';
 
 const router = Router();
@@ -13,6 +14,8 @@ const router = Router();
 router.get ("/archivo", obtenerArchivos);
 
 router.get ("/archivo/:id", obtenerArchivo);
+
+router.get ("/archivo_leccion/:idLeccion", obtenerArchivosByLeccion);
 
 router.post ("/archivo", crearArchivo);
 

@@ -24,6 +24,16 @@ export const obtenerArchivo = async (req, res) => {
     }
 }
 
+export const obtenerArchivosByLeccion = async (req, res) => {
+    try {
+        const [rows] = await pool.query("SELECT a.idArchivo, a.nombre, a.url, a.extencion FROM leccion_archivo as l_a inner join archivo as a on l_a.idArchivo = a.idArchivo where l_a.idLeccion = ?", [req.params.idLeccion]);
+        res.send(rows);
+
+    } catch (error) {
+        res.status(500).json({"mensaje": "Algo salio mal"});
+    }
+}
+
 export const crearArchivo = async (req, res) => {
 
     try {
