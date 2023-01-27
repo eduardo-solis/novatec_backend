@@ -15,3 +15,5 @@ router.get("/pregunta/:id", obtenerPregunta);
 router.post("/pregunta", crearPregunta);
 router.patch("/pregunta/:id", modificarPregunta);
 router.delete("/pregunta", eliminarPregunta);
+
+export default router;

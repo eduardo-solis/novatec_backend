@@ -29,7 +29,7 @@ export const crearCurso = async (req, res) => {
     const { nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura } = req.body;
     try {
 
-        const [rows] = await pool.query(`INSERT INTO curso (nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura) value (?,?,??,?,?,?)`, [nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura]);
+        const [rows] = await pool.query(`INSERT INTO curso (nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura) value (?,?,?,?,?,?,?)`, [nombre, objetivos, descripcion, precio, duracion, idVideo, idMiniatura]);
         res.send({
             idCurso: rows.insertId,
             nombre: nombre,
@@ -43,7 +43,7 @@ export const crearCurso = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({"mensaje": "Algo salio mal"});
+        res.status(500).json({"mensaje": error});
     }
 
 }
