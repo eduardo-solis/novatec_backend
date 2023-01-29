@@ -19,7 +19,7 @@ router.get ("/archivo_leccion/:idLeccion", obtenerArchivosByLeccion);
 
 router.post ("/archivo", crearArchivo);
 
-router.patch ("/archivo", modificarArchivo);
+router.patch ("/archivo/:id", modificarArchivo);
 
 router.delete ("/archivo/:id", eliminarArchivo);
 
