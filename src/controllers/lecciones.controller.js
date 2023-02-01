@@ -34,7 +34,8 @@ export const crearLeccion = async (req, res) => {
             idLeccion: rows.insertId,
             idCurso: idCurso,
             nombre: nombre,
-            informacion: informacion
+            informacion: informacion,
+            estatus: 1
         });
 
     } catch (error) {
@@ -71,7 +72,7 @@ export const cambiarEstatus = async (req, res) => {
             sql = "UPDATE leccion SET estatus = 1 WHERE idLeccion = ?"
         }
         else{
-            "UPDATE leccion SET estatus = 0 WHERE idLeccion = ?"
+            sql = "UPDATE leccion SET estatus = 0 WHERE idLeccion = ?"
         }
 
         const [result] = await pool.query(sql, [id]);
