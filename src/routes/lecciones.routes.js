@@ -16,7 +16,7 @@ router.get ("/leccion/:id", obtenerLeccion);
 
 router.post ("/leccion", crearLeccion);
 
-router.patch ("/leccion", modificarLeccion);
+router.patch ("/leccion/:id", modificarLeccion);
 
 router.delete ("/leccion/:id/:op", cambiarEstatus);
 

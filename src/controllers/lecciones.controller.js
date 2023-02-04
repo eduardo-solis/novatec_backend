@@ -27,14 +27,15 @@ export const obtenerLeccion = async (req, res) => {
 export const crearLeccion = async (req, res) => {
 
     try {
-
+        const idVideo = 0;
         const { idCurso, nombre, informacion } = req.body;
-        const [rows] = await pool.query(`INSERT INTO leccion (idCurso, nombre, informacion) value (?,?,?)`, [idCurso, nombre, informacion]);
+        const [rows] = await pool.query(`INSERT INTO leccion (idCurso, nombre, informacion, idVideo) value (?,?,?,?)`, [idCurso, nombre, informacion, idVideo]);
         res.send({
             idLeccion: rows.insertId,
             idCurso: idCurso,
             nombre: nombre,
             informacion: informacion,
+            idVideo: idVideo,
             estatus: 1
         });
 
@@ -47,11 +48,11 @@ export const crearLeccion = async (req, res) => {
 export const modificarLeccion = async (req, res) => {
 
     const { id } = req.params;
-    const { nombre, informacion } = req.body;
+    const { nombre, informacion, idVideo } = req.body;
 
     try {
         
-        const [result] = await pool.query("UPDATE leccion SET nombre = IFNULL(?, nombre), informacion = IFNULL(?, informacion) WHERE idLeccion = ?", [nombre, informacion, id]);
+        const [result] = await pool.query("UPDATE leccion SET nombre = IFNULL(?, nombre), informacion = IFNULL(?, informacion), idVideo = IFNULL(?, idVideo) WHERE idLeccion = ?", [nombre, informacion, idVideo, id]);
         if( result.affectedRows <= 0 ) return res.status(404).json({ "mensaje" : "No se encontro ninguna lección" });
         const [rows] = await pool.query("SELECT * FROM leccion WHERE idLeccion = ?", [id]);
         res.send(rows[0]);
