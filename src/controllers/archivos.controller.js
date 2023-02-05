@@ -67,7 +67,7 @@ export const crearArchivo = async (req, res) => {
 
         const archivo = await obtenerArchivoByNombre(nombre)
 
-        if ( archivo.idArchivo == 0 ) {
+        if (archivo.idArchivo == 0) {
             const [rows] = await pool.query(`INSERT INTO archivo (nombre, url, extencion) value (?,?,?)`, [nombre, url, extencion]);
             res.send({
                 idArchivo: rows.insertId,
@@ -76,9 +76,27 @@ export const crearArchivo = async (req, res) => {
                 extencion: extencion
             });
         }
-        else{
+        else {
             return res.send(archivo)
         }
+
+    } catch (error) {
+        res.status(500).json({ "mensaje": "Algo salio mal" });
+    }
+
+}
+
+export const crearArchivoByLeccion = async (req, res) => {
+
+    const { idArchivo, idLeccion } = req.body;
+
+    try {
+        const [result] = await pool.query(`INSERT INTO leccion_archivo (idArchivo, idLeccion) value (?,?)`, [idArchivo, idLeccion]);
+        
+        if (result.affectedRows <= 0) return res.status(404).json({ "mensaje": "No se agrego ningun archivo" });
+
+        res.sendStatus(204);
+
 
     } catch (error) {
         res.status(500).json({ "mensaje": "Algo salio mal" });
@@ -109,6 +127,21 @@ export const eliminarArchivo = async (req, res) => {
 
     try {
         const [result] = await pool.query("DELETE FROM archivo WHERE idArchivo = ?", [id]);
+        if (result.affectedRows <= 0) return res.status(404).json({ "mensaje": "No se encontro ningun archivo" });
+        res.sendStatus(204);
+
+    } catch (error) {
+        res.status(500).json({ "mensaje": "Algo salio mal" });
+    }
+
+}
+
+export const eliminarArchivoByLeccion = async (req, res) => {
+
+    const { idArchivo } = req.params;
+
+    try {
+        const [result] = await pool.query("DELETE FROM leccion_archivo WHERE idArchivo = ?", [idArchivo]);
         if (result.affectedRows <= 0) return res.status(404).json({ "mensaje": "No se encontro ningun archivo" });
         res.sendStatus(204);
 
