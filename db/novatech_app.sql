@@ -30,7 +30,7 @@ CREATE TABLE `archivo` (
   `url` longtext NOT NULL,
   `extencion` varchar(10) NOT NULL,
   PRIMARY KEY (`idArchivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `archivo` (
 
 LOCK TABLES `archivo` WRITE;
 /*!40000 ALTER TABLE `archivo` DISABLE KEYS */;
-INSERT INTO `archivo` VALUES (1,'video-curso.mp4','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/video%2Fvideo-curso.mp4?alt=media&token=47ee0f6d-59e3-4aad-9a71-1989e7b11d1b','video/mp4'),(2,'pexels-karolina-grabowska-4491461.jpg','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/imagen%2Fpexels-karolina-grabowska-4491461.jpg?alt=media&token=afc018fa-0e87-422a-a6eb-d69ecce53aeb','image/jpeg'),(3,'video_test.mp4','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/video%2Fvideo_test.mp4?alt=media&token=9603179e-b4d8-4326-8cb7-223527e82b88','video/mp4');
+INSERT INTO `archivo` VALUES (1,'pexels-karolina-grabowska-4491461.jpg','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/cursos%2FCurso%201%2Fimagen%2Fpexels-karolina-grabowska-4491461.jpg?alt=media&token=cb1abdb5-9f6f-43a0-81ce-3d3de076dbde','image/jpeg'),(2,'video.mp4','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/cursos%2FCurso%201%2Fvideo%2Fvideo.mp4?alt=media&token=60684037-2283-4fcf-bdbd-17588edf320a','video/mp4'),(4,'myw3schoolsimage.jpg','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/cursos%2FCurso%201%2Flecciones%2FLecci%C3%B3n%201%2Farchivos%2Fmyw3schoolsimage.jpg?alt=media&token=9b24d3c8-2996-4422-b480-662657815be3','image/jpeg');
 /*!40000 ALTER TABLE `archivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +57,7 @@ CREATE TABLE `cuestionario` (
   PRIMARY KEY (`idCuestionario`),
   KEY `idLeccion` (`idLeccion`),
   CONSTRAINT `cuestionario_ibfk_1` FOREIGN KEY (`idLeccion`) REFERENCES `leccion` (`idLeccion`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `cuestionario` (
 
 LOCK TABLES `cuestionario` WRITE;
 /*!40000 ALTER TABLE `cuestionario` DISABLE KEYS */;
-INSERT INTO `cuestionario` VALUES (1,1,'Cuestionario de la lección #1'),(2,2,'Cuestionario 2'),(3,3,'Cuestionario de la leccion 3'),(4,4,'Cuestionario 4');
+INSERT INTO `cuestionario` VALUES (1,1,'Cuestionario del curso 1');
 /*!40000 ALTER TABLE `cuestionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `curso` (
 
 LOCK TABLES `curso` WRITE;
 /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-INSERT INTO `curso` VALUES (20,'Curso 1','Objetivo del primer curso','Descripción del primer curso',1500.00,45,1,2,1);
+INSERT INTO `curso` VALUES (20,'Curso 1','Objetivo del curso 1','Descripción del curso 1',123123.00,45,2,1,1);
 /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +118,7 @@ CREATE TABLE `leccion` (
   PRIMARY KEY (`idLeccion`),
   KEY `idCurso` (`idCurso`),
   CONSTRAINT `leccion_ibfk_1` FOREIGN KEY (`idCurso`) REFERENCES `curso` (`idCurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +127,7 @@ CREATE TABLE `leccion` (
 
 LOCK TABLES `leccion` WRITE;
 /*!40000 ALTER TABLE `leccion` DISABLE KEYS */;
-INSERT INTO `leccion` VALUES (1,20,'Lección #1','Información de la Lección 1',3,1),(2,20,'Lección 2','Información de la Lección 2',0,1),(3,20,'Lección 3','Información de la Lección 3',0,1),(4,20,'Lección 4','Información de la Lección 4',0,1);
+INSERT INTO `leccion` VALUES (1,20,'Lección 1','Información de la Lección 1',2,1);
 /*!40000 ALTER TABLE `leccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +147,7 @@ CREATE TABLE `leccion_archivo` (
   KEY `idLeccion` (`idLeccion`),
   CONSTRAINT `leccion_archivo_ibfk_1` FOREIGN KEY (`idArchivo`) REFERENCES `archivo` (`idArchivo`),
   CONSTRAINT `leccion_archivo_ibfk_2` FOREIGN KEY (`idLeccion`) REFERENCES `leccion` (`idLeccion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,6 +156,7 @@ CREATE TABLE `leccion_archivo` (
 
 LOCK TABLES `leccion_archivo` WRITE;
 /*!40000 ALTER TABLE `leccion_archivo` DISABLE KEYS */;
+INSERT INTO `leccion_archivo` VALUES (2,1,4);
 /*!40000 ALTER TABLE `leccion_archivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,7 +179,7 @@ CREATE TABLE `pregunta` (
   PRIMARY KEY (`idPregunta`),
   KEY `idCuestionario` (`idCuestionario`),
   CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-03 22:05:24
+-- Dump completed on 2023-02-04 20:08:27
