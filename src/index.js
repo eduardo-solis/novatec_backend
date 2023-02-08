@@ -8,6 +8,7 @@ import archivosRoutes from './routes/archivos.routes.js';
 import cuestionariosRoutes from './routes/cuestionarios.routes.js';
 import preguntasRoutes from './routes/preguntas.routes.js';
 import usuariosRoutes from './routes/usuarios.routes.js';
+import rolesRoutes from './routes/roles.routes.js';
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use("/api", archivosRoutes);
 app.use("/api", cuestionariosRoutes);
 app.use("/api", preguntasRoutes);
 app.use("/api", usuariosRoutes);
+app.use("/api", rolesRoutes);
 
 // Ruta no encontrada
 app.use((req, res, next) => {
