@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `novatec_app` /*!40100 DEFAULT CHARACTER SET utf8
 USE `novatec_app`;
 -- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
 --
--- Host: localhost    Database: novatec_app
+-- Host: 127.0.0.1    Database: novatec_app
 -- ------------------------------------------------------
 -- Server version	8.0.29
 
@@ -30,7 +30,7 @@ CREATE TABLE `archivo` (
   `url` longtext NOT NULL,
   `extencion` varchar(10) NOT NULL,
   PRIMARY KEY (`idArchivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,6 @@ CREATE TABLE `archivo` (
 
 LOCK TABLES `archivo` WRITE;
 /*!40000 ALTER TABLE `archivo` DISABLE KEYS */;
-INSERT INTO `archivo` VALUES (1,'pexels-karolina-grabowska-4491461.jpg','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/cursos%2FCurso%201%2Fimagen%2Fpexels-karolina-grabowska-4491461.jpg?alt=media&token=cb1abdb5-9f6f-43a0-81ce-3d3de076dbde','image/jpeg'),(2,'video.mp4','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/cursos%2FCurso%201%2Fvideo%2Fvideo.mp4?alt=media&token=60684037-2283-4fcf-bdbd-17588edf320a','video/mp4'),(4,'myw3schoolsimage.jpg','https://firebasestorage.googleapis.com/v0/b/test-firebase-react-19c01.appspot.com/o/cursos%2FCurso%201%2Flecciones%2FLecci%C3%B3n%201%2Farchivos%2Fmyw3schoolsimage.jpg?alt=media&token=9b24d3c8-2996-4422-b480-662657815be3','image/jpeg');
 /*!40000 ALTER TABLE `archivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +56,7 @@ CREATE TABLE `cuestionario` (
   PRIMARY KEY (`idCuestionario`),
   KEY `idLeccion` (`idLeccion`),
   CONSTRAINT `cuestionario_ibfk_1` FOREIGN KEY (`idLeccion`) REFERENCES `leccion` (`idLeccion`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +65,6 @@ CREATE TABLE `cuestionario` (
 
 LOCK TABLES `cuestionario` WRITE;
 /*!40000 ALTER TABLE `cuestionario` DISABLE KEYS */;
-INSERT INTO `cuestionario` VALUES (1,1,'Cuestionario del curso 1');
 /*!40000 ALTER TABLE `cuestionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,9 +84,9 @@ CREATE TABLE `curso` (
   `duracion` int NOT NULL,
   `idVideo` int DEFAULT NULL,
   `idMiniatura` int DEFAULT NULL,
-  `estatus` tinyint(1) NOT NULL DEFAULT (true),
+  `estatus` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idCurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +95,6 @@ CREATE TABLE `curso` (
 
 LOCK TABLES `curso` WRITE;
 /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-INSERT INTO `curso` VALUES (20,'Curso 1','Objetivo del curso 1','Descripción del curso 1',123123.00,45,2,1,1);
 /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,11 +111,11 @@ CREATE TABLE `leccion` (
   `nombre` varchar(150) NOT NULL,
   `informacion` longtext,
   `idVideo` int DEFAULT NULL,
-  `estatus` tinyint(1) NOT NULL DEFAULT (true),
+  `estatus` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idLeccion`),
   KEY `idCurso` (`idCurso`),
   CONSTRAINT `leccion_ibfk_1` FOREIGN KEY (`idCurso`) REFERENCES `curso` (`idCurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +124,6 @@ CREATE TABLE `leccion` (
 
 LOCK TABLES `leccion` WRITE;
 /*!40000 ALTER TABLE `leccion` DISABLE KEYS */;
-INSERT INTO `leccion` VALUES (1,20,'Lección 1','Información de la Lección 1',2,1);
 /*!40000 ALTER TABLE `leccion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +143,7 @@ CREATE TABLE `leccion_archivo` (
   KEY `idLeccion` (`idLeccion`),
   CONSTRAINT `leccion_archivo_ibfk_1` FOREIGN KEY (`idArchivo`) REFERENCES `archivo` (`idArchivo`),
   CONSTRAINT `leccion_archivo_ibfk_2` FOREIGN KEY (`idLeccion`) REFERENCES `leccion` (`idLeccion`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +152,6 @@ CREATE TABLE `leccion_archivo` (
 
 LOCK TABLES `leccion_archivo` WRITE;
 /*!40000 ALTER TABLE `leccion_archivo` DISABLE KEYS */;
-INSERT INTO `leccion_archivo` VALUES (2,1,4);
 /*!40000 ALTER TABLE `leccion_archivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +174,7 @@ CREATE TABLE `pregunta` (
   PRIMARY KEY (`idPregunta`),
   KEY `idCuestionario` (`idCuestionario`),
   CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`idCuestionario`) REFERENCES `cuestionario` (`idCuestionario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,17 +183,95 @@ CREATE TABLE `pregunta` (
 
 LOCK TABLES `pregunta` WRITE;
 /*!40000 ALTER TABLE `pregunta` DISABLE KEYS */;
-INSERT INTO `pregunta` VALUES (1,1,'¿Cuanto es 2 + 2?','4','1','2','3','4');
 /*!40000 ALTER TABLE `pregunta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'novatec_app'
+-- Table structure for table `rol`
 --
 
+DROP TABLE IF EXISTS `rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rol` (
+  `idRol` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) NOT NULL,
+  `descripcion` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`idRol`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'novatec_app'
+-- Dumping data for table `rol`
 --
+
+LOCK TABLES `rol` WRITE;
+/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` VALUES (1,'cliente','operaciones basicas (lectura)'),(2,'empleado','operaciones principales (lectura, escritura)'),(3,'administrador','operaciones avanzadas (lectura, escritura, actualización)');
+/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario` (
+  `idUsuario` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `primerApellido` varchar(100) NOT NULL,
+  `segundoApellido` varchar(100) DEFAULT NULL,
+  `ultimoGradoEstudio` varchar(150) DEFAULT NULL,
+  `fechaNac` varchar(10) NOT NULL,
+  `genero` varchar(6) NOT NULL,
+  `curp` varchar(18) DEFAULT NULL,
+  `telefono` varchar(10) DEFAULT NULL,
+  `imagen` longblob,
+  `correo` varchar(20) NOT NULL,
+  `contrasenia` text NOT NULL,
+  `estatus` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`idUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario_rol`
+--
+
+DROP TABLE IF EXISTS `usuario_rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario_rol` (
+  `idRelacion` int NOT NULL AUTO_INCREMENT,
+  `idUsuario` int NOT NULL,
+  `idRol` int NOT NULL,
+  PRIMARY KEY (`idRelacion`),
+  KEY `idUsuario` (`idUsuario`),
+  KEY `idRol` (`idRol`),
+  CONSTRAINT `usuario_rol_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  CONSTRAINT `usuario_rol_ibfk_2` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario_rol`
+--
+
+LOCK TABLES `usuario_rol` WRITE;
+/*!40000 ALTER TABLE `usuario_rol` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuario_rol` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -209,4 +282,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-04 20:08:31
+-- Dump completed on 2023-02-08 11:54:55
