@@ -229,7 +229,7 @@ CREATE TABLE `usuario` (
   `curp` varchar(18) DEFAULT NULL,
   `telefono` varchar(10) DEFAULT NULL,
   `imagen` longblob,
-  `correo` varchar(20) NOT NULL,
+  `correo` varchar(20) NOT NULL UNIQUE,
   `contrasenia` text NOT NULL,
   `estatus` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`idUsuario`)
