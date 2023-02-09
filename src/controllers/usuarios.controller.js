@@ -54,7 +54,6 @@ export const crearUsuario = async (req, res) => {
     try {
 
         const contraseniaProtegida = await protegerContrasenia(contrasenia)
-        console.log(contraseniaProtegida)
 
         if (!roles) {
             roles = ["cliente"]

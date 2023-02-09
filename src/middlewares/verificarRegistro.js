@@ -25,6 +25,18 @@ export const verificarExistenciaRegistro = async(req, res, next) => {
 
 }
 
+export const verificarExistenciaUsuario = async (req, res, next) => {
+
+    const [rows] = await pool.query("select * from usuario where correo = ?", [req.body.correo]);
+    
+    if (rows.length == 0) return res.status(404).json("El correo no existe");
+
+    req.body.usuario = rows[0];
+
+    next();
+
+}
+
 
 export const verificarExistenciaRoles = (req, res, next) => {
 

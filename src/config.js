@@ -1,0 +1,1 @@
+export const SECRET = "novatec_app_token";
