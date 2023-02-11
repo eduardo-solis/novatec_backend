@@ -8,16 +8,19 @@ import {
     obtenerLecciones
 } from '../controllers/lecciones.controller.js';
 
+import { verificarToken } from '../middlewares/verificarToken.js';
+import { verificarEsEmpleadoAdmin, verificarEsAdmin } from '../middlewares/verificarRol.js';
+
 const router = Router();
 
 router.get ("/leccion", obtenerLecciones);
 
 router.get ("/leccion/:id", obtenerLeccion);
 
-router.post ("/leccion", crearLeccion);
+router.post ("/leccion", [ verificarToken, verificarEsEmpleadoAdmin ], crearLeccion);
 
-router.patch ("/leccion/:id", modificarLeccion);
+router.patch ("/leccion/:id", [ verificarToken, verificarEsEmpleadoAdmin ], modificarLeccion);
 
-router.delete ("/leccion/:id/:op", cambiarEstatus);
+router.delete ("/leccion/:id/:op", [ verificarToken, verificarEsAdmin ], cambiarEstatus);
 
 export default router;
