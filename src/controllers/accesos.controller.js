@@ -18,7 +18,7 @@ export const registrarCliente = async (req, res) => {
 
         await pool.query("INSERT INTO usuario_rol (idUsuario, idRol) value (?,?)", [rows.insertId, 1]);
 
-        const token = jwt.sign({ idUsuario: rows.insertId }, SECRET, { expiresIn: 300 });
+        const token = jwt.sign({ idUsuario: rows.insertId }, SECRET, { expiresIn: 86400 });
 
         res.json({ acceso: true, token });
 
@@ -38,7 +38,7 @@ export const accederAlSistema = async (req, res) => {
 
         if ( !validacionContrasenia ) return res.status(401).json({ acceso: false, token: null });
 
-        const token = jwt.sign({ idUsuario: usuario.idUsuario }, SECRET, { expiresIn: 300 })
+        const token = jwt.sign({ idUsuario: usuario.idUsuario }, SECRET, { expiresIn: 86400 })
 
         res.json({ acceso: true, token });
 
