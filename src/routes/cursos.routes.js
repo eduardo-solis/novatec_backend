@@ -6,9 +6,9 @@ import { verificarEsEmpleadoAdmin, verificarEsAdmin } from '../middlewares/verif
 
 const router = Router();
 
-router.get("/curso", [ verificarToken ], obtenerCursos)
+router.get("/curso", obtenerCursos)
 
-router.get("/curso/:id", [ verificarToken ], obtenerCurso)
+router.get("/curso/:id", obtenerCurso)
 
 router.post("/curso", [ verificarToken, verificarEsEmpleadoAdmin ], crearCurso)
 
