@@ -12,6 +12,20 @@ export const obtenerLecciones = async (req, res) => {
 
 }
 
+export const obtenerLeccionesPorCurso = async (req, res) => {
+
+    const { idCurso } = req.params
+
+    try {
+        const [rows] = await pool.query("SELECT * FROM leccion WHERE idCurso = ?", [idCurso]);
+        res.json(rows);
+    }
+    catch(error) {
+        res.status(500).json({"mensaje": "Algo salio mal"});
+    }
+
+}
+
 export const obtenerLeccion = async (req, res) => {
     try {
 

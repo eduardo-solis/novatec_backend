@@ -5,7 +5,8 @@ import {
     crearLeccion,
     modificarLeccion,
     obtenerLeccion,
-    obtenerLecciones
+    obtenerLecciones,
+    obtenerLeccionesPorCurso
 } from '../controllers/lecciones.controller.js';
 
 import { verificarToken } from '../middlewares/verificarToken.js';
@@ -14,6 +15,7 @@ import { verificarEsEmpleadoAdmin, verificarEsAdmin } from '../middlewares/verif
 const router = Router();
 
 router.get ("/leccion", obtenerLecciones);
+router.get ("/leccion_curso/:idCurso", obtenerLeccionesPorCurso);
 
 router.get ("/leccion/:id", obtenerLeccion);
 
