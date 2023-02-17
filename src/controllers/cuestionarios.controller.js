@@ -12,6 +12,18 @@ export const obtenerCuestionarios = async (req, res) => {
 
 }
 
+export const obtenerCuestionarioPorLeccion = async (req, res) => {
+    try {
+
+        const [rows] = await pool.query("SELECT * FROM cuestionario WHERE idLeccion = ?", [req.params.id]);
+        if (rows <= 0) return res.status(404).json({ "mensaje": "No se encontro ningun cuestionario" })
+        res.send(rows[0]);
+
+    } catch (error) {
+        res.status(500).json({"mensaje": "Algo salio mal"});
+    }
+}
+
 export const obtenerCuestionario = async (req, res) => {
     try {
 

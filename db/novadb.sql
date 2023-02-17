@@ -228,12 +228,13 @@ CREATE TABLE `usuario` (
   `genero` varchar(6) NOT NULL,
   `curp` varchar(18) DEFAULT NULL,
   `telefono` varchar(10) DEFAULT NULL,
-  `imagen` longblob,
-  `correo` varchar(20) NOT NULL UNIQUE,
+  `imagen` text,
+  `correo` varchar(150) NOT NULL,
   `contrasenia` text NOT NULL,
   `estatus` tinyint(1) DEFAULT '1',
-  PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `correo_UNIQUE` (`correo`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,6 +243,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Eduardo Rubén','Solís','Hernández','Tecnico Superior Universitario','09-01-2000','Hombre','SOHE000109HNLLRDA0','8113474548','','solis@correo.com','$2a$10$LbU2NTkcQL7u9xCeuYeya.n6PeZ60fgUGFohy9e7J1gkicZLCPwGy',1),(3,'Pedro','Hernandez','Tienda','Primaria','25-06-2009','Hombre','','4772651023','','pedro@correo.com','$2a$10$zysVbsnijwdVcUACU1qwFeUGDTjaMyx0vYiSFqK7FJl9yF20fnfIm',1),(5,'Uriel Zadkiel','Solís','Hernández','Preparatoria','29-04-2004','Hombre','SOHU040429HNLLRRA5','8113474546','','uriel@correo.com','$2a$10$zIPPB491hDv2LBR9RYtNYOCEZUGWc8F2Ek581m.Ao9nuCBbN.8bxC',1),(6,'Sandra Nohemi','Solis','Hernandez','Licenciatura','2001-11-10','Mujer','','4776081111',NULL,'sandra@correo.com','$2a$10$h3oYWCvIpc/OhxGsjxazU.R7r1HRUeczTnq1VdeD9w37jFwOyOw1m',1),(7,'Pepe','Pepo','','Preescolar','2023-03-10','Hombre','','4776081111',NULL,'pepe@correo.com','$2a$10$mZFlU1P9mdfEjfIuPHyffOKhj9GVCYd1e/1Lg0Sd2ErFyTQVuV0I.',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,7 +263,7 @@ CREATE TABLE `usuario_rol` (
   KEY `idRol` (`idRol`),
   CONSTRAINT `usuario_rol_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
   CONSTRAINT `usuario_rol_ibfk_2` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,6 +272,7 @@ CREATE TABLE `usuario_rol` (
 
 LOCK TABLES `usuario_rol` WRITE;
 /*!40000 ALTER TABLE `usuario_rol` DISABLE KEYS */;
+INSERT INTO `usuario_rol` VALUES (1,1,3),(2,1,2),(13,3,2),(14,3,1),(15,5,1),(16,6,2),(17,7,1);
 /*!40000 ALTER TABLE `usuario_rol` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -282,4 +285,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-08 11:54:55
+-- Dump completed on 2023-02-14 13:52:47
