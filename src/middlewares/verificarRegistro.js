@@ -1,6 +1,6 @@
 import { pool } from "../db.js";
 
-const ROLES = [ "cliente", "empleado", "administrador" ];
+const ROLES = [ "cliente", "staff", "administrador" ];
 
 export const verificarRegistroDuplicado = async (req, res, next) => {
 

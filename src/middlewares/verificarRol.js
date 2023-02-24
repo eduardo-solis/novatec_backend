@@ -1,6 +1,6 @@
 
 // Roles de la base de datos
-const ROLES = [ "cliente", "empleado", "administrador" ];
+const ROLES = [ "cliente", "staff", "administrador" ];
 
 export const verificarEsUsuario = (req, res, next) => {
 
