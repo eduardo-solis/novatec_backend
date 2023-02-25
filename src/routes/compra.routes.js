@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { verificarToken } from "../middlewares/verificarToken";
-import { verificarEsUsuario, verificarEsEmpleadoAdmin } from "../middlewares/verificarRol";
-import { autorizarCurso, cambiarEstatusCompra, obtenerCodigosDeAutorizacion, obtenerCompraPorId_Admin, obtenerCompraPorId_Cliente, obtenerCompras_Admin, obtenerCompras_Cliente, registrarCompra } from "../controllers/compras.controller";
+import { verificarToken } from "../middlewares/verificarToken.js";
+import { verificarEsUsuario, verificarEsEmpleadoAdmin } from "../middlewares/verificarRol.js";
+import { autorizarCurso, cambiarEstatusCompra, obtenerCodigosDeAutorizacion, obtenerCompraPorId_Admin, obtenerCompraPorId_Cliente, obtenerCompras_Admin, obtenerCompras_Cliente, registrarCompra } from "../controllers/compras.controller.js";
 
 
 
@@ -24,3 +24,5 @@ router.get("/compra/:idCompra", [verificarToken, verificarEsEmpleadoAdmin], obte
 router.patch("/compra/:idCompra/:estatus", [verificarToken, verificarEsEmpleadoAdmin], cambiarEstatusCompra)
 
 router.get("/compra/:idCliente/:idCompra", [verificarToken, verificarEsEmpleadoAdmin], obtenerCodigosDeAutorizacion)
+
+export default router;

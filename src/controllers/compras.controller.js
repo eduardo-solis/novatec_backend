@@ -238,22 +238,22 @@ export const obtenerCodigosDeAutorizacion = async (req, res) => {
         let cursos = [];
         for (let i = 0; i < detalle.length; i++) {
             const idCurso = detalle[i].idCurso;
-            const curso = await pool.query("SELECT * FROM curso WHERE idCurso = ?", [idCurso])
-            cursos.push(curso[0])
+            let [rows] = await pool.query("SELECT * FROM curso WHERE idCurso = ?", [idCurso])
+            cursos.push(rows[0]) 
         }
 
         // Buscar su relacion y obtener el codigo de autorizacion
         for (let j = 0; j < cursos.length; j++) {
-            let curso = cursos[i]
-            const resultRelacion = await pool.query("SELECT * FROM cliente_curso WHERE idCliente = ? AND idCurso = ?", [idCliente, curso.idCurso])
-            curso.codigoAuth = resultRelacion[0].codigoAutorizacion
-            cursos[i] = curso
+            let curso = cursos[j]
+            const [rows] = await pool.query("SELECT * FROM cliente_curso WHERE idCliente = ? AND idCurso = ?", [idCliente, curso.idCurso])
+            curso.codigoAuth = rows[0].codigoAutorizacion
+            cursos[j] = curso
         }
 
         res.json(cursos)
 
     } catch (error) {
-        console.debug(`Ha ocurrido un error inesperado \n ${error}`)
+        console.debug(`Ha ocurrido un error inesperado\n ${error}`)
         res.sendStatus(500)
     }
 
