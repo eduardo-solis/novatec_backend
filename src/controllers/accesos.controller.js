@@ -48,6 +48,40 @@ export const accederAlSistema = async (req, res) => {
 
 }
 
+
+export const modificarCliente = async (req, res) => {
+
+    const { id } = req.params;
+    const { nombre, primerApellido, segundoApellido, ultimoGradoEstudio, fechaNac, genero, curp, telefono, imagen, correo, contrasenia } = req.body;
+
+    let contraseniaProtegida = null
+
+    try {
+        if (contrasenia) {
+            contraseniaProtegida = await protegerContrasenia(contrasenia)
+        }
+
+        const [result] = await pool.query("UPDATE usuario SET nombre = IFNULL(?, nombre), primerApellido = IFNULL(?, primerApellido), segundoApellido = IFNULL(?, segundoApellido), ultimoGradoEstudio = IFNULL(?, ultimoGradoEstudio), fechaNac = IFNULL(?, fechaNac), genero = IFNULL(?, genero), curp = IFNULL(?, curp), telefono = IFNULL(?, telefono), imagen = IFNULL(?, imagen), correo = IFNULL(?, correo), contrasenia = IFNULL(?, contrasenia) WHERE idUsuario = ?", [nombre, primerApellido, segundoApellido, ultimoGradoEstudio, fechaNac, genero, curp, telefono, imagen, correo, contraseniaProtegida, id])
+
+        // Proceso para enviar los datos actualizados
+        const [rows] = await pool.query("SELECT * FROM usuario WHERE idUsuario = ?", [id])
+
+        const dataUser = rows[0]
+
+        const resultRolesUsuario = await pool.query("select r.nombre as rol from rol as r join usuario_rol as ur on r.idRol = ur.idRol where ur.idUsuario = ?", [dataUser.idUsuario])
+        const dataRoles = resultRolesUsuario[0]
+
+        dataUser.roles = dataRoles.map((item) => item.rol)
+
+        res.json(dataUser)
+
+    } catch (error) {
+        res.status(500).json({ message: "Algo salio mal", error: error })
+    }
+
+}
+
+
 export const perfil = async (req, res) => {
     const { usuario } = req.body;
 
