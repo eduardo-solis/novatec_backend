@@ -8,7 +8,7 @@ export const obtenerCursos = async (req, res) => {
         res.json(rows);
 
     } catch (error) {
-        res.status(500).json({"mensaje": "Algo salio mal"});
+        res.status(500).json({"mensaje": "Algo salio mal", "error": error});
     }
 }
 

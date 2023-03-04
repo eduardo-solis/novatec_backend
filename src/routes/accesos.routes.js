@@ -8,7 +8,7 @@ const router = Router();
 
 router.post("/registro", verificarRegistroDuplicado, registrarCliente);
 
-router.patch("/editar/:id", [verificarToken,verificarEsUsuario,verificarExistenciaUsuario], modificarCliente);
+router.patch("/editar/:id", [verificarToken,verificarExistenciaUsuario], modificarCliente);
 
 router.post("/acceso", verificarExistenciaUsuario, accederAlSistema);
 

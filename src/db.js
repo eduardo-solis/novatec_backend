@@ -5,5 +5,5 @@ export const pool = createPool({
     port: 3306,
     database: "novatec_app",
     user: "root",
-    password: "admin"
+    password: "root"
 });
