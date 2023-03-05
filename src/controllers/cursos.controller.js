@@ -12,6 +12,18 @@ export const obtenerCursos = async (req, res) => {
     }
 }
 
+export const obtenerCursosCliente = async (req, res) => {
+
+    const {idCliente} = req.params
+
+    try {
+        const [rows] = await pool.query("select cc.idRelacion, cc.idCliente, cc.ultimaConexion, cc.finalizado, cc.fechaFinalizacionCurso, cc.codigoAutorizacion, cc.autorizado, c.* from cliente_curso as cc inner join curso as c on cc.idCurso = c.idCurso where cc.idCliente = ?", [idCliente]);
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({"mensaje": "Algo salio mal", "error": error});
+    }
+}
+
 export const obtenerCurso = async (req, res) => {
     try {
 
