@@ -11,6 +11,7 @@ import usuariosRoutes from './routes/usuarios.routes.js';
 import rolesRoutes from './routes/roles.routes.js';
 import accesosRoutes from './routes/accesos.routes.js';
 import compraRoutes from './routes/compra.routes.js';
+import curso_clientesRoutes from "./routes/curso_clientes.routes.js";
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/api", usuariosRoutes);
 app.use("/api", rolesRoutes);
 app.use("/api", accesosRoutes);
 app.use("/api", compraRoutes);
+app.use("/api", curso_clientesRoutes);
 
 // Ruta no encontrada
 app.use((req, res, next) => {
