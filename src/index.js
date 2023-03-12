@@ -12,6 +12,8 @@ import rolesRoutes from './routes/roles.routes.js';
 import accesosRoutes from './routes/accesos.routes.js';
 import compraRoutes from './routes/compra.routes.js';
 import curso_clientesRoutes from "./routes/curso_clientes.routes.js";
+import calificacionesRoutes from "./routes/calificaciones.routes.js";
+import certificacionesRoutes from "./routes/certificaciones.routes.js";
 
 const app = express();
 
@@ -32,6 +34,8 @@ app.use("/api", rolesRoutes);
 app.use("/api", accesosRoutes);
 app.use("/api", compraRoutes);
 app.use("/api", curso_clientesRoutes);
+app.use("/api", calificacionesRoutes);
+app.use("/api", certificacionesRoutes);
 
 // Ruta no encontrada
 app.use((req, res, next) => {
