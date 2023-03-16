@@ -15,9 +15,15 @@ export const obtenerCuestionarios = async (req, res) => {
 export const obtenerCuestionarioPorLeccion = async (req, res) => {
     try {
 
-        const [rows] = await pool.query("SELECT * FROM cuestionario WHERE idLeccion = ?", [req.params.id]);
+        const [rows] = await pool.query("SELECT * FROM cuestionario WHERE idLeccion = ?", [req.params.idLeccion]);
         if (rows <= 0) return res.status(404).json({ "mensaje": "No se encontro ningun cuestionario" })
-        res.send(rows[0]);
+
+        let cuestionario = rows[0]
+
+        const [result] = await pool.query("select * from pregunta where idCuestionario = ?", [cuestionario.idCuestionario])
+        cuestionario.preguntas = result
+
+        res.send(cuestionario);
 
     } catch (error) {
         res.status(500).json({"mensaje": "Algo salio mal"});

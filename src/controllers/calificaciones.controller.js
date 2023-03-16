@@ -7,22 +7,43 @@ export const obtenerCalificacionesCliente = async (req, res) => {
         const [rows] = await pool.query("SELECT * FROM calificacion WHERE idCliente = ? AND idCurso = ?", [idCliente, idCurso])
         res.send(rows)
     } catch (error) {
-        res.status(500).json({"mensaje": "Algo salio mal"});
+        res.status(500).json({ "mensaje": "Algo salio mal" });
+    }
+}
+
+export const obtenerCalificacionCliente = async (req, res) => {
+    const { idCliente, idCuestionario } = req.params
+
+    try {
+        const [rows] = await pool.query("SELECT * FROM calificacion WHERE idCliente = ? AND idCuestionario = ?", [idCliente, idCuestionario])
+
+        if (rows.length == 0) return res.send({
+            idCalificacion: 0,
+            idCuestionario: 0,
+            idCurso: 0,
+            idLeccion: 0,
+            idCliente: 0,
+            calificacion: 0
+        })
+
+        res.send(rows[0])
+    } catch (error) {
+        res.status(500).json({ "mensaje": "Algo salio mal" });
     }
 }
 
 export const registrarCalificacion = async (req, res) => {
 
-    const { idCuestionario,idCurso, idLeccion, idCliente, calificacion } = req.body;
+    const { idCuestionario, idCurso, idLeccion, idCliente, calificacion } = req.body;
 
     try {
-        
+
         const [rows] = await pool.query("INSERT INTO calificacion (idCuestionario, idCurso, idLeccion, idCliente, calificacion) value (?,?,?,?,?)", [idCuestionario, idCurso, idLeccion, idCliente, calificacion])
 
-        if (rows.insertId == 0) return res.sendStatus(404).json({"mensaje": "No se pudo registrar la calificacion"})
+        if (rows.insertId == 0) return res.sendStatus(404).json({ "mensaje": "No se pudo registrar la calificacion" })
 
         res.json({
-            idCalificacion : rows.insertId,
+            idCalificacion: rows.insertId,
             idCuestionario,
             idCurso,
             idLeccion,
@@ -31,7 +52,7 @@ export const registrarCalificacion = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({"mensaje": "Algo salio mal"});
+        res.status(500).json({ "mensaje": "Algo salio mal" });
     }
 
 }
@@ -43,11 +64,11 @@ export const modificarCalificacion = async (req, res) => {
     try {
         const [result] = await pool.query("UPDATE calificacion SET calificacion = ? WHERE idCalificacion = ?", [calificacion, idCalificacion])
 
-        if(result.affectedRows == 0) return res.sendStatus(404).json({"mensaje": "No se pudo registrar la calificacion"})
+        if (result.affectedRows == 0) return res.sendStatus(404).json({ "mensaje": "No se pudo registrar la calificacion" })
 
         res.sendStatus(204)
 
     } catch (error) {
-        res.status(500).json({"mensaje": "Algo salio mal"});
+        res.status(500).json({ "mensaje": "Algo salio mal" });
     }
 }
