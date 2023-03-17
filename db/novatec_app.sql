@@ -28,7 +28,7 @@ CREATE TABLE `archivo` (
   `idArchivo` int NOT NULL AUTO_INCREMENT,
   `nombre` text NOT NULL,
   `url` longtext NOT NULL,
-  `extencion` varchar(10) NOT NULL,
+  `extencion` text NOT NULL,
   PRIMARY KEY (`idArchivo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -391,7 +391,7 @@ CREATE TABLE `usuario` (
   `genero` varchar(6) NOT NULL,
   `curp` varchar(18) DEFAULT NULL,
   `telefono` varchar(10) DEFAULT NULL,
-  `imagen` text,
+  `imagen` longtext,
   `correo` varchar(150) NOT NULL,
   `contrasenia` text NOT NULL,
   `estatus` tinyint(1) DEFAULT '1',
@@ -448,4 +448,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-16 19:03:52
+-- Dump completed on 2023-03-16 19:07:44
