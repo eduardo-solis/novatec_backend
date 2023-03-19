@@ -5,7 +5,7 @@ export const obtenerCertificadosCliente = async (req, res) => {
     const { idCliente } = req.params
     try {
 
-        const [rows] = await pool.query("select c.*, concat(u.nombre, ' ', u.primerApellido, ' ', u.segundoApellido) as nombreCliente, cu.nombre as nombreCurso, cu.duracion as duracionCurso, cc.fechaFinalizacionCurso as fechaFinalizadoCurso from certificacion as c inner join usuario as u on c.idCliente = u.idUsuario inner join curso as cu on c.idCurso = cu.idCurso inner join cliente_curso as cc on cu.idCurso = cc.idCurso where c.idCliente = ?", [idCliente])
+        const [rows] = await pool.query("select c.*,  concat(u.nombre, ' ', u.primerApellido, ' ', u.segundoApellido) as nombreCliente,  cu.nombre as nombreCurso, cu.duracion as duracionCurso,  cc.fechaFinalizacionCurso as fechaFinalizadoCurso  from certificacion as c  inner join usuario as u on c.idCliente = u.idUsuario  inner join curso as cu on c.idCurso = cu.idCurso  inner join cliente_curso as cc on c.idCurso = cc.idCurso and c.idCliente = cc.idCliente where c.idCliente = ?", [idCliente])
 
         res.send(rows)
 
@@ -36,20 +36,17 @@ export const registrarCertificado = async (req, res) => {
 export const generarCertificado = async (req, res) => {
     const { idCertificado } = req.params
     try {
-        const [rows] = await pool.query("select c.*, concat(u.nombre, ' ', u.primerApellido, ' ', u.segundoApellido) as nombreCliente, cu.nombre as nombreCurso, cu.duracion as duracionCurso, cc.fechaFinalizacionCurso as fechaFinalizadoCurso from certificacion as c inner join usuario as u on c.idCliente = u.idUsuario inner join curso as cu on c.idCurso = cu.idCurso inner join cliente_curso as cc on cu.idCurso = cc.idCurso where c.idCertificacion = ?", [idCertificado])
-
-        if(rows.length == 0) return res.sendStatus(404).json({"mensaje": "No se encontro el certificado"})
+        const [rows] = await pool.query("select  c.*,  concat(u.nombre, ' ', u.primerApellido, ' ', u.segundoApellido) as nombreCliente,  cu.nombre as nombreCurso, cu.duracion as duracionCurso,  cc.fechaFinalizacionCurso as fechaFinalizadoCurso  from certificacion as c  inner join usuario as u on c.idCliente = u.idUsuario  inner join curso as cu on c.idCurso = cu.idCurso  inner join cliente_curso as cc on c.idCurso = cc.idCurso and c.idCliente = cc.idCliente where c.idCertificacion = ?", [idCertificado])
 
         let cert = rows[0];
-
         let doc = new PDFDocument({ bufferPages: true });
-        //let stream = doc.pipe(BlobStream());
 
         let buffers = [];
         doc.on('data', buffers.push.bind(buffers));
         doc.on('end', () => {
 
             let pdfData = Buffer.concat(buffers);
+            //res.send({ "bufferDatos": pdfData})
             res.writeHead(200, {
                 'Content-Length': Buffer.byteLength(pdfData),
                 'Content-Type': 'application/pdf',
@@ -84,6 +81,6 @@ export const generarCertificado = async (req, res) => {
         doc.end();
 
     } catch (error) {
-        res.status(500).json({"mensaje": "Algo salio mal"});
+        res.status(500).json({"mensaje": "Algo salio mal", "error": error.toString()});
     }
 }

@@ -12,6 +12,6 @@ router.get("/certificacion/:idCliente", [verificarToken, verificarEsUsuario], ob
 router.post("/certificacion", [verificarToken, verificarEsUsuario], registrarCertificado)
 
 // Enviar certificación
-router.get("/certificacion_gem/:idCertificacion", [verificarToken, verificarEsUsuario], generarCertificado)
+router.get("/certificacion_gem/:idCertificado", [verificarToken, verificarEsUsuario], generarCertificado)
 
 export default router;
