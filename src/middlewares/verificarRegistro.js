@@ -29,7 +29,10 @@ export const verificarExistenciaUsuario = async (req, res, next) => {
 
     const [rows] = await pool.query("select * from usuario where correo = ?", [req.body.correo]);
     
-    if (rows.length == 0) return res.status(404).json("El correo no existe");
+    if (rows.length == 0) return res.status(404).json({"mensaje": "El correo no existe"});
+
+    let u = rows[0]
+    if(u.estatus == 0) return res.status(405).json({"mensaje": "La cuenta del usuario esta inactiva"})
 
     req.body.usuario = rows[0];
 
