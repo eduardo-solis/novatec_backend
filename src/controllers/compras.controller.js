@@ -1,4 +1,5 @@
 import { pool } from "../db.js";
+import { generarCodigoAutorizacion } from "../lib/codigoAutorizacion.js";
 
 // buscar todas las compras de 1 cliente
 export const obtenerCompras_Cliente = async (req, res) => {
@@ -93,7 +94,7 @@ export const registrarCompra = async (req, res) => {
             let auxDetalle = [ idCompra, curso.idCurso, curso.precio ];
             detalles.push(auxDetalle);
 
-            let codigo = Math.floor(Math.random() * 1000000)
+            let codigo = generarCodigoAutorizacion(6)
             let auxRelacion = [idCliente, curso.idCurso, fechaActual, false, "", codigo, false]
             relacion.push(auxRelacion)
 
