@@ -15,6 +15,6 @@ export const generarCodigoAutorizacion = ( longitud ) => {
         codigo += `${numRandom}`
     }
 
-    console.log(codigo);
+    return codigo
 
 }
